@@ -15,6 +15,10 @@ class User extends Authenticatable
 		'name', 'email', 'phone', 'group_id', 'admin', 'id_number', 'can_book', 'can_book_reason', 'dob', 'active'
 	];
 
+	protected $appends = [
+		'role'
+	];
+
 	protected $hidden = [
 		'password', 'remember_token',
 	];
@@ -33,5 +37,19 @@ class User extends Authenticatable
 	
 	public function tutors_groups() {
 		return $this->belongsToMany('App\Models\Group', 'tutor');
+	}
+
+	public function getRoleAttribute() {
+		switch($this->admin) {
+			case 1:
+				return 'Staff';
+				break;
+			case 2:
+				return 'Manager';
+				break;
+			default:
+				return 'Student';
+				break;
+		}
 	}
 }
