@@ -14,6 +14,10 @@ class Product extends Model
 	protected $fillable = [
 		'name', 'product_type_id', 'limitless'
 	];
+
+	protected $appends = [
+		'unit_count'
+	];
 	
 	public function units() {
 		return $this->hasMany('App\Models\Unit', 'product_id');
@@ -33,5 +37,9 @@ class Product extends Model
 	
 	public function kits() {
 		return $this->belongsToMany('App\Models\Kit', 'kit_product')->withPivot('id', 'quantity');
+	}
+
+	public function getUnitCountAttribute() {
+		return $this->units()->count();
 	}
 }

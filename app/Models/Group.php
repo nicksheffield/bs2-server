@@ -14,6 +14,10 @@ class Group extends Model
 	protected $fillable = [
 		'code', 'group_type_id', 'active'
 	];
+
+	protected $appends = [
+		'student_count'
+	];
 	
 	public function type() {
 		return $this->belongsTo('App\Models\Group_Type', 'group_type_id');
@@ -25,5 +29,9 @@ class Group extends Model
 	
 	public function tutors() {
 		return $this->belongsToMany('App\Models\User', 'tutor');
+	}
+
+	public function getStudentCountAttribute() {
+		return $this->users()->count();
 	}
 }

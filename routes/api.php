@@ -2,21 +2,14 @@
 
 use Illuminate\Http\Request;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
-
 Route::resource('/user', 'UserController');
 Route::resource('/group', 'GroupController');
+Route::resource('/group-type', 'GroupTypeController');
+Route::resource('/product', 'ProductController');
+Route::resource('/product-type', 'ProductTypeController');
+Route::resource('/unit', 'UnitController');
+Route::resource('/kit', 'KitController');
+
+Route::get('{all?}', function() {
+	return response()->json(['error' => 'Something you\'re trying to load doesn\'t exist'], 404);
+})->where('all', '.*');
