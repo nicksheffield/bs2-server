@@ -12,12 +12,20 @@ class Kit extends Model
 	use SoftDeletes;
 	
 	protected $table = 'kits';
-	
+
 	protected $fillable = [
 		'name'
 	];
 
+	protected $appends = [
+		'product_count'
+	];
+
 	public function products() {
 		return $this->belongsToMany('App\Models\Product', 'kit_product')->withPivot('id', 'quantity');
+	}
+
+	public function getProductCountAttribute() {
+		return $this->products()->count();
 	}
 }

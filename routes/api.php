@@ -9,6 +9,7 @@ Route::resource('/product', 'ProductController');
 Route::resource('/product-type', 'ProductTypeController');
 Route::resource('/unit', 'UnitController');
 Route::resource('/kit', 'KitController');
+Route::resource('/booking', 'BookingController');
 
 Route::get('{all?}', function() {
 	return response()->json(['error' => 'Something you\'re trying to load doesn\'t exist'], 404);

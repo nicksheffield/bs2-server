@@ -14,8 +14,16 @@ class Product_Type extends Model
 	protected $fillable = [
 		'name'
 	];
+
+	protected $appends = [
+		'product_count'
+	];
 	
 	public function products() {
 		return $this->hasMany('App\Models\Product', 'product_type_id');
+	}
+
+	public function getProductCountAttribute() {
+		return $this->products()->count();
 	}
 }
