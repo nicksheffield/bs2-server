@@ -29,9 +29,17 @@ class Booking extends Model
 		return $this->belongsTo('App\Models\User', 'user_id');
 	}
 
-	// public function created_by() {
-	// 	return $this->belongsTo('App\Models\User', 'user_id');
-	// }
+	public function created_by() {
+		return $this->belongsTo('App\Models\User', 'created_by_id');
+	}
+
+	public function issued_by() {
+		return $this->belongsTo('App\Models\User', 'issued_by_id');
+	}
+
+	public function closed_by() {
+		return $this->belongsTo('App\Models\User', 'closed_by_id');
+	}
 
 	public function getStatusAttribute() {
 		// Closed, Overdue, Issued, Booked
