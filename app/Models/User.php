@@ -35,8 +35,8 @@ class User extends Authenticatable
 		return $this->hasMany('App\Models\Note', 'user_id')->orderBy('created_at', 'DESC');
 	}
 	
-	public function tutors_groups() {
-		return $this->belongsToMany('App\Models\Group', 'tutor');
+	public function tutors() {
+		return $this->hasMany('App\Models\Tutor');
 	}
 
 	public function getRoleAttribute() {

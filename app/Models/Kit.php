@@ -21,8 +21,8 @@ class Kit extends Model
 		'product_count'
 	];
 
-	public function products() {
-		return $this->belongsToMany('App\Models\Product', 'kit_product')->withPivot('id', 'quantity');
+	public function kit_products() {
+		return $this->hasMany('App\Models\KitProduct');
 	}
 
 	public function getProductCountAttribute() {

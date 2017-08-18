@@ -21,8 +21,8 @@ class Booking extends Model
 		'status'
 	];
 	
-	public function products() {
-		return $this->belongsToMany('App\Models\Product', 'booking_product')->withPivot('id', 'unit_id', 'notes', 'returned_at')->withTimestamps();
+	public function booking_products() {
+		return $this->hasMany('App\Models\BookingProduct');
 	}
 
 	public function user() {

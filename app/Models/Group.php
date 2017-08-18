@@ -28,7 +28,7 @@ class Group extends Model
 	}
 	
 	public function tutors() {
-		return $this->belongsToMany('App\Models\User', 'tutor');
+		return $this->hasMany('App\Models\Tutor');
 	}
 
 	public function getStudentCountAttribute() {

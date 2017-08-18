@@ -15,8 +15,8 @@ class Unit extends Model
 		'serial_number', 'asset_number', 'unit_number', 'product_id', 'notes'
 	];
 	
-	public function bookings() {
-		return $this->belongsToMany('App\Models\Booking', 'booking_product')->withTimestamps()->withPivot('notes', 'returned_at');
+	public function booking_products() {
+		return $this->hasMany('App\Models\BookingProduct');
 	}
 	
 	public function product() {
