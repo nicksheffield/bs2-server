@@ -26,6 +26,6 @@ class Kit extends Model
 	}
 
 	public function getProductCountAttribute() {
-		return $this->products()->count();
+		return $this->kit_products()->count();
 	}
 }
