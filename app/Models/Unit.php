@@ -30,7 +30,7 @@ class Unit extends Model
 	public function getStatusAttribute() {
 		foreach ($this->booking_products as $bp) {
 			if (!$bp->booking) continue;
-			if (!$bp->returned_at) return 'Issued';
+			if (!$bp->returned_at) return 'Out';
 		}
 
 		return 'In Stock';
