@@ -7,12 +7,16 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Laravel\Passport\HasApiTokens;
+
 class User extends Authenticatable
 {
-	use SoftDeletes;
+	use SoftDeletes, HasApiTokens;
 
 	protected $fillable = [
-		'name', 'email', 'phone', 'group_id', 'admin', 'id_number', 'can_book', 'can_book_reason', 'dob', 'active'
+		'name', 'email', 'phone', 'group_id',
+		'admin', 'id_number', 'can_book',
+		'can_book_reason', 'dob', 'active'
 	];
 
 	protected $appends = [
