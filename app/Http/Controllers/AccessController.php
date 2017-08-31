@@ -39,4 +39,17 @@ class AccessController extends Controller
 			'message' => 'User was logged out'
 		]);
 	}
+
+	public function check(Request $request)
+	{
+		$user = $request->user('api');
+
+		if ($user) {
+			return $user;
+		} else {
+			return response()->json([
+				'unauthenticated' => true
+			], 401);
+		}
+	}
 }

@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class IsManager
+class APIAuth
 {
 	/**
 	 * Handle an incoming request.
@@ -15,8 +15,8 @@ class IsManager
 	 */
 	public function handle($request, Closure $next)
 	{
-		if ($request->user('api')->admin !== 2) {
-			return response()->json(['message' => 'Insufficient authorization'], 401);
+		if (!$request->user('api')) {
+			return response()->json(['message' => 'You are not authenticated'], 401);
 		}
 		return $next($request);
 	}

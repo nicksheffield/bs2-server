@@ -1,9 +1,12 @@
 <?php
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 /**
  * Middlewares
  * 
- * 'auth:api' means any user sending a valid oauth token can use the route
+ * 'auth:api' means any user sending a valid oauth token can use the route (Passport)
+ * 'api.auth' means any user sending a valid oauth token can use the route (Custom)
  * 'all'      means any user can use the route
  * 'student'  means only students can use the route
  * 'staff'    means only staff can use the route
@@ -11,7 +14,7 @@
  * 'employed' means staff and managers can use the route
  **/
 
-Route::middleware(['auth:api'])->group(function() {
+Route::middleware(['api.auth'])->group(function() {
 	Route::get('/user',         'UserController@index'  )->middleware('all');
 	Route::get('/user/{id}',    'UserController@show'   )->middleware('all');
 	Route::post('/user',        'UserController@store'  )->middleware('employed');
@@ -61,7 +64,12 @@ Route::middleware(['auth:api'])->group(function() {
 	Route::delete('/booking/{id}', 'BookingController@destroy')->middleware('all');
 });
 
+Route::get('/test', function(Request $request) {
+	dd($request->user('api'));
+});
+
 Route::post('/logout', 'AccessController@logout');
+Route::post('/auth/check', 'AccessController@check');
 
 Route::get('{all?}', function() {
 	return response()->json(['error' => 'Something you\'re trying to load doesn\'t exist'], 404);

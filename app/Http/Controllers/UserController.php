@@ -23,6 +23,22 @@ class UserController extends Controller
 	}
 
 	/**
+	 * Display the currently logged in user.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function auth(Request $request)
+	{
+		$id = $request->user('api')->id;
+
+		$query = Model::query()->where('id', $id);
+
+		$query = handleWiths($query, $request->with);
+
+		return $query->first();
+	}
+
+	/**
 	 * Store a newly created resource in storage.
 	 *
 	 * @param  \Illuminate\Http\Request  $request
@@ -32,10 +48,10 @@ class UserController extends Controller
 	{
 		$model = new Model();
 
-		$model->fill($request->all());
+		$model->fill($request->except('password'));
 
-		if($request->password) {
-			$model->password = hash($request->password);
+		if ($request->password) {
+			$model->password = bcrypt($request->password);
 		}
 		
 		$model->save();
@@ -67,7 +83,17 @@ class UserController extends Controller
 	 */
 	public function update(Request $request, $id)
 	{
-		//
+		$model = Model::find($id);
+
+		$model->fill($request->except('password'));
+
+		if ($request->password) {
+			$model->password = bcrypt($request->password);
+		}
+
+		$model->save();
+
+		return $model;
 	}
 
 	/**

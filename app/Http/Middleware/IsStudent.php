@@ -16,7 +16,7 @@ class IsStudent
 	public function handle($request, Closure $next)
 	{
 		if ($request->user('api')->admin !== 0) {
-			return response()->json(['error' => 'Insufficient authorization'], 401);
+			return response()->json(['message' => 'Insufficient authorization'], 401);
 		}
 		return $next($request);
 	}
