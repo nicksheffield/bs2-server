@@ -20,7 +20,7 @@ class User extends Authenticatable
 	];
 
 	protected $appends = [
-		'role'
+		'role', 'booking_count'
 	];
 
 	protected $hidden = [
@@ -55,5 +55,9 @@ class User extends Authenticatable
 				return 'Student';
 				break;
 		}
+	}
+
+	public function getBookingCountAttribute() {
+		return $this->bookings()->count();
 	}
 }
